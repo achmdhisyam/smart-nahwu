@@ -1,0 +1,60 @@
+@extends('layouts.app')
+
+@section('title', 'Log Percobaan Kuis - Admin Smart Nahwu')
+
+@section('content')
+<div class="max-w-5xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="flex items-center space-x-2">
+        <a href="{{ route('admin.dashboard') }}" class="text-sm text-[#1b4332] hover:text-[#b45309] font-bold">← Dashboard</a>
+    </div>
+
+    <div>
+        <h1 class="text-3xl font-extrabold text-[#1b4332]">Log Percobaan Kuis</h1>
+        <p class="text-sm text-[#5c6f60]">Pemantauan aktivitas kuis dan nilai yang diperoleh siswa secara real-time.</p>
+    </div>
+
+    <!-- Table Card -->
+    <div class="glass bg-white rounded-3xl overflow-hidden shadow-sm border border-[#e6dec9]">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-[#fcfbfa] border-b border-[#e6dec9] text-[#4a5d4e] text-xs uppercase tracking-wider font-bold">
+                        <th class="px-6 py-4">Siswa</th>
+                        <th class="px-6 py-4">Nama Kuis</th>
+                        <th class="px-6 py-4">Skor</th>
+                        <th class="px-6 py-4">Waktu</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#e6dec9] text-[#2b3a32] text-sm">
+                    @forelse($quizzes as $attempt)
+                        <tr class="hover:bg-[#fbf8f1]/40 transition">
+                            <td class="px-6 py-4 font-bold text-[#1b4332]">{{ $attempt->user->name }}</td>
+                            <td class="px-6 py-4">{{ $attempt->kuis->judul }}</td>
+                            <td class="px-6 py-4">
+                                @php
+                                    $badgeColor = $attempt->skor >= 70 ? 'text-[#385723] bg-[#e2f0d9]' : 'text-[#c65911] bg-[#fce4d6]';
+                                @endphp
+                                <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg {{ $badgeColor }}">
+                                    {{ number_format($attempt->skor, 0) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-[#5c6f60]">{{ $attempt->created_at->diffForHumans() }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-6 py-8 text-center text-[#5c6f60]">Belum ada aktivitas kuis.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        @if($quizzes->hasPages())
+            <div class="px-6 py-4 bg-[#fcfbfa] border-t border-[#e6dec9]">
+                {{ $quizzes->links() }}
+            </div>
+        @endif
+    </div>
+</div>
+@endsection

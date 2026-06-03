@@ -56,6 +56,7 @@
                     <input type="checkbox" name="remember" class="rounded bg-white border-[#e6dec9] text-[#1b4332] focus:ring-0">
                     <span>Ingat Saya</span>
                 </label>
+                <a href="{{ route('password.request') }}" class="text-[#b45309] hover:underline font-semibold">Lupa Password?</a>
             </div>
 
             <button 
@@ -75,11 +76,11 @@
         <!-- Quick Demo login buttons (Premium UX) -->
         <div class="grid grid-cols-2 gap-3">
             <button 
-                @click="email = 'student@example.com'; password = 'password'"
+                @click="email = 'santri@example.com'; password = 'password'"
                 class="px-3 py-2 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#2b3a32] text-xs font-semibold rounded-xl border border-[#e6dec9] transition flex flex-col items-center justify-center space-y-1 cursor-pointer"
             >
-                <span class="font-bold text-[#1b4332]">Akun Siswa</span>
-                <span class="text-[10px] text-[#5c6f60]">student@example.com</span>
+                <span class="font-bold text-[#1b4332]">Akun Santri</span>
+                <span class="text-[10px] text-[#5c6f60]">santri@example.com</span>
             </button>
             <button 
                 @click="email = 'admin@example.com'; password = 'password'"

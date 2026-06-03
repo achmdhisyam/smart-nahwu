@@ -36,7 +36,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard')->with('success', 'Selamat datang Administrator!');
             }
 
-            return redirect()->route('quiz.index')->with('success', 'Selamat datang kembali!');
+            return redirect()->route('kuis.index')->with('success', 'Selamat datang kembali!');
         }
 
         throw ValidationException::withMessages([
@@ -67,12 +67,12 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'student', // Default role
+            'role' => 'santri', // Default role
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('quiz.index')->with('success', 'Registrasi berhasil! Selamat belajar!');
+        return redirect()->route('kuis.index')->with('success', 'Registrasi berhasil! Selamat belajar!');
     }
 
     /**
@@ -85,6 +85,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('analyze.index')->with('success', 'Anda telah keluar.');
+        return redirect()->route('analisis.index')->with('success', 'Anda telah keluar.');
     }
 }

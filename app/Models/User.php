@@ -53,7 +53,7 @@ class User extends Authenticatable
      */
     public function analysisHistories()
     {
-        return $this->hasMany(AnalysisHistory::class);
+        return $this->hasMany(RiwayatAnalisis::class, 'user_id');
     }
 
     /**
@@ -61,7 +61,7 @@ class User extends Authenticatable
      */
     public function quizHistories()
     {
-        return $this->hasMany(QuizHistory::class);
+        return $this->hasMany(RiwayatKuis::class, 'user_id');
     }
 
     /**
@@ -69,16 +69,17 @@ class User extends Authenticatable
      */
     public function userProgress()
     {
-        return $this->hasMany(UserProgress::class);
+        return $this->hasMany(ProgresPengguna::class, 'user_id');
     }
 
     /**
      * Relationship: Achievements
      */
-    public function achievements()
+    public function pencapaian()
     {
-        return $this->belongsToMany(Achievement::class, 'user_achievements')
-            ->withPivot('unlocked_at');
+        return $this->belongsToMany(Pencapaian::class, 'pencapaian_user', 'user_id', 'pencapaian_id')
+            ->withPivot('terbuka_pada')
+            ->withTimestamps();
     }
 
     /**
@@ -90,11 +91,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Scope: Student users
+     * Scope: Santri users
      */
-    public function scopeStudent($query)
+    public function scopeSantri($query)
     {
-        return $query->where('role', 'student');
+        return $query->where('role', 'santri');
     }
 
     /**

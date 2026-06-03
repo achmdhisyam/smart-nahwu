@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Services\KnowledgeBase\JsonImporterService;
+use App\Services\KnowledgeBase\ImporJsonService;
 use Illuminate\Database\Seeder;
 
 class JurumiyahSeeder extends Seeder
@@ -18,7 +18,7 @@ class JurumiyahSeeder extends Seeder
         $this->command->info("Memulai proses impor Knowledge Base dari: {$jsonPath}");
 
         try {
-            $importService = new JsonImporterService();
+            $importService = new ImporJsonService();
             $importService->import($jsonPath);
             
             $this->command->info("Sukses: Knowledge Base Jurumiyah berhasil diimpor.");

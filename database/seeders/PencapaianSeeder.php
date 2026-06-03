@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AchievementSeeder extends Seeder
+class PencapaianSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,34 +14,34 @@ class AchievementSeeder extends Seeder
     {
         $achievements = [
             [
-                'code' => 'ACH_FIRST_QUIZ',
-                'title' => 'Langkah Pertama 🏅',
-                'description' => 'Menyelesaikan kuis pertama Anda di Smart Nahwu.',
-                'badge_icon' => 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+                'kode_pencapaian' => 'ACH_FIRST_QUIZ',
+                'judul' => 'Pena Pertama',
+                'deskripsi' => 'Menyelesaikan kuis evaluasi pertama Anda.',
+                'ikon_pencapaian' => 'fa-feather-pointed',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'code' => 'ACH_SCORE_100',
-                'title' => 'Sempurna! 🌟',
-                'description' => 'Mendapatkan nilai 100 pada kuis latihan bab apa saja.',
-                'badge_icon' => 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                'kode_pencapaian' => 'ACH_SCORE_100',
+                'judul' => 'Mumtaz',
+                'deskripsi' => 'Mendapatkan nilai sempurna (100) pada salah satu kuis.',
+                'ikon_pencapaian' => 'fa-star',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'code' => 'ACH_JURUMIYAH_COMPLETED',
-                'title' => 'Al-Ajurrumiy Master 🎓',
-                'description' => 'Menguasai seluruh bab Kitab Matan Al-Ajurrumiyyah dengan status Mastered.',
-                'badge_icon' => 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                'kode_pencapaian' => 'ACH_JURUMIYAH_COMPLETED',
+                'judul' => 'Khatam Al-Ajurrumiyyah',
+                'deskripsi' => 'Menyelesaikan seluruh bab Kitab Matan Al-Ajurrumiyyah.',
+                'ikon_pencapaian' => 'fa-scroll',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
         ];
 
         foreach ($achievements as $achievement) {
-            DB::table('achievements')->updateOrInsert(
-                ['code' => $achievement['code']],
+            DB::table('pencapaian')->updateOrInsert(
+                ['kode_pencapaian' => $achievement['kode_pencapaian']],
                 $achievement
             );
         }

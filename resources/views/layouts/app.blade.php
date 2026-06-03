@@ -61,17 +61,17 @@
             </span>
         </a>
         <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold">
-            <a href="/analyze" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Analisis Baru</a>
-            <a href="/quiz" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Latihan Kuis</a>
+            <a href="/analisis" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Analisis Baru</a>
+            <a href="/kuis" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Latihan Kuis</a>
             
             @auth
                 @if(auth()->user()->isAdmin())
                     <a href="/admin" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Admin Panel</a>
                 @endif
                 <span class="text-[#dfb15b]/40">|</span>
-                <span class="text-[#dfb15b] text-xs bg-[#133827] px-2.5 py-1 rounded border border-[#dfb15b]/30">
-                    {{ auth()->user()->name }} ({{ ucfirst(auth()->user()->role) }})
-                </span>
+                <a href="{{ route('profil.edit') }}" class="w-8 h-8 rounded-full bg-[#dfb15b] hover:bg-white text-[#1b4332] font-bold border border-[#dfb15b]/30 flex items-center justify-center transition shadow-sm" title="Profil & Pengaturan: {{ auth()->user()->name }}">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                </a>
                 <form action="{{ route('logout') }}" method="POST" class="inline m-0 p-0">
                     @csrf
                     <button type="submit" class="hover:text-[#dfb15b] text-[#fbf8f1] transition cursor-pointer py-1">Keluar</button>

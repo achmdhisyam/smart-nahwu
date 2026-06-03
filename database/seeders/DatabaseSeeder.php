@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'Test Student',
-            'email' => 'student@example.com',
+            'name' => 'Test Santri',
+            'email' => 'santri@example.com',
             'password' => bcrypt('password'),
-            'role' => 'student',
+            'role' => 'santri',
         ]);
 
         User::factory()->create([
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             JurumiyahSeeder::class,
-            AchievementSeeder::class,
+            PencapaianSeeder::class,
         ]);
     }
 }

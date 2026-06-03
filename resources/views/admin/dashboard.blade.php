@@ -17,6 +17,9 @@
             <a href="/admin/rules" class="px-4 py-2 bg-[#b45309] hover:bg-[#9a4004] text-white text-xs font-bold rounded-xl transition border border-[#b45309]">
                 Kelola Kaidah
             </a>
+            <a href="{{ route('admin.pengguna.index') }}" class="px-4 py-2 bg-[#dfb15b] hover:bg-[#cfa149] text-white text-xs font-bold rounded-xl transition border border-[#dfb15b]">
+                Kelola Pengguna
+            </a>
         </div>
     </div>
 
@@ -106,15 +109,15 @@
                         <div class="space-y-1">
                             <span class="text-[10px] text-[#5c6f60] font-bold block">{{ $attempt->user->name }}</span>
                             <p class="text-sm font-bold text-[#133827] truncate max-w-[200px] sm:max-w-[300px]">
-                                {{ $attempt->quiz->title }}
+                                {{ $attempt->kuis->judul }}
                             </p>
                         </div>
                         <div class="flex items-center space-x-2 shrink-0">
                             @php
-                                $badgeColor = $attempt->score >= 70 ? 'text-[#385723] bg-[#e2f0d9]' : 'text-[#c65911] bg-[#fce4d6]';
+                                $badgeColor = $attempt->skor >= 70 ? 'text-[#385723] bg-[#e2f0d9]' : 'text-[#c65911] bg-[#fce4d6]';
                             @endphp
                             <span class="text-xs font-extrabold px-2 py-0.5 rounded-lg {{ $badgeColor }}">
-                                {{ number_format($attempt->score, 0) }}
+                                {{ number_format($attempt->skor, 0) }}
                             </span>
                         </div>
                     </div>
