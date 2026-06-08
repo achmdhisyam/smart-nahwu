@@ -15,6 +15,7 @@ class BabJurumiyah extends Model
         'induk_id',
         'judul',
         'definisi',
+        'matan_arab',
         'nomor_urut',
         'langkah_belajar'
     ];

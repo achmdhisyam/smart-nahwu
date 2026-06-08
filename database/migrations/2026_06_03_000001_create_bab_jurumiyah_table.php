@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('induk_id')->nullable()->constrained('bab_jurumiyah')->nullOnDelete();
             $table->string('judul');
             $table->text('definisi');
+            $table->text('matan_arab')->nullable();
             $table->integer('nomor_urut')->default(0)->index();
             $table->integer('langkah_belajar')->nullable()->index();
             $table->timestamps();

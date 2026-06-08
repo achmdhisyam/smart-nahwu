@@ -61,6 +61,7 @@ class ImporJsonService
                 $chapter = BabJurumiyah::create([
                     'judul' => $chapterItem['chapter'],
                     'definisi' => $chapterItem['definition'],
+                    'matan_arab' => $chapterItem['matan_arab'] ?? null,
                     'nomor_urut' => $index + 1,
                     'langkah_belajar' => $step,
                 ]);

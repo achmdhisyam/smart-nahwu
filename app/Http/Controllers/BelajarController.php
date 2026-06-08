@@ -90,7 +90,9 @@ class BelajarController extends Controller
                 ->first();
         }
 
-        return view('belajar.show', compact('chapter', 'prevChapter', 'nextChapter', 'progress', 'hash'));
+        $arabicMatan = $chapter->matan_arab;
+
+        return view('belajar.show', compact('chapter', 'prevChapter', 'nextChapter', 'progress', 'hash', 'arabicMatan'));
     }
 
     /**

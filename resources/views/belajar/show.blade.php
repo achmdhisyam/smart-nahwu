@@ -46,6 +46,19 @@
             </p>
         </div>
 
+        <!-- Matan Al-Ajurrumiyyah (Jika Ada) -->
+        @if(!empty($arabicMatan))
+            <div class="space-y-3">
+                <h3 class="text-lg font-bold text-[#1b4332] flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-sm text-[#b45309]"></i>
+                    <span>Matan Al-Ajurrumiyyah</span>
+                </h3>
+                <div class="p-6 md:p-8 bg-[#f5f2eb] rounded-xl border border-[#e6dec9] text-[#1b4332] text-right font-serif text-2xl md:text-3xl leading-loose shadow-inner relative" dir="rtl">
+                    {{ $arabicMatan }}
+                </div>
+            </div>
+        @endif
+
         <!-- Definisi / Penjelasan -->
         <div class="space-y-3">
             <h3 class="text-lg font-bold text-[#1b4332] flex items-center gap-2">
@@ -66,12 +79,7 @@
                 </h3>
                 <div class="space-y-3">
                     @foreach($chapter->kaidahGramatika as $kaidah)
-                        <div class="p-4 bg-white border border-[#e6dec9]/60 rounded-xl space-y-2">
-                            <div class="flex items-center justify-between border-b border-[#e6dec9]/30 pb-2 mb-2">
-                                <span class="text-xs font-bold text-[#1b4332] bg-[#1b4332]/10 px-2.5 py-0.5 rounded-full">
-                                    {{ $kaidah->kode_kaidah }}
-                                </span>
-                            </div>
+                        <div class="p-4 bg-white border border-[#e6dec9]/60 rounded-xl">
                             <p class="text-sm text-[#2b3a32] leading-relaxed whitespace-pre-line">
                                 {{ $kaidah->teks_kaidah }}
                             </p>
@@ -138,31 +146,29 @@
     </div>
 
     <!-- Quiz CTA Section -->
-    @if($chapter->buatKuis)
-        <div class="kitab-box p-6 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="space-y-1 text-center md:text-left">
-                <h4 class="text-base font-bold text-emerald-900">Uji Pemahaman Anda!</h4>
-                <p class="text-emerald-700 text-xs">Evaluasi pemahaman materi bab ini dengan mengikuti kuis interaktif.</p>
-            </div>
-            @if(Auth::check())
-                <a 
-                    href="{{ route('kuis.show', $chapter->id) }}"
-                    class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition"
-                >
-                    <i class="fa-solid fa-gamepad"></i>
-                    <span>Mulai Kuis</span>
-                </a>
-            @else
-                <a 
-                    href="{{ route('login') }}"
-                    class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition"
-                >
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <span>Login untuk Kuis</span>
-                </a>
-            @endif
+    <div class="kitab-box p-6 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="space-y-1 text-center md:text-left">
+            <h4 class="text-base font-bold text-emerald-900">Uji Pemahaman Anda!</h4>
+            <p class="text-emerald-700 text-xs">Evaluasi pemahaman materi bab ini dengan mengikuti kuis interaktif.</p>
         </div>
-    @endif
+        @if(Auth::check())
+            <a 
+                href="{{ route('kuis.show', $chapter->id) }}"
+                class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition"
+            >
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Mulai Kuis</span>
+            </a>
+        @else
+            <a 
+                href="{{ route('login') }}"
+                class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition"
+            >
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Login untuk Kuis</span>
+            </a>
+        @endif
+    </div>
 
     <!-- Chapter Navigation -->
     <div class="flex items-center justify-between border-t border-[#e6dec9]/60 pt-6">
