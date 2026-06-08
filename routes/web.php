@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 // Google Authentication Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-Route::get('/auth/google/mock', [GoogleAuthController::class, 'mockPage'])->name('auth.google.mock');
-Route::post('/auth/google/mock/callback', [GoogleAuthController::class, 'mockCallback'])->name('auth.google.mock.callback');
 
 Route::get('/', function () {
     return view('welcome');

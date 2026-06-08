@@ -15,11 +15,6 @@ class GoogleAuthController extends Controller
      */
     public function redirectToGoogle()
     {
-        $clientId = config('services.google.client_id');
-        if (empty($clientId) || str_starts_with($clientId, 'mock')) {
-            return redirect()->route('auth.google.mock');
-        }
-
         try {
             return Socialite::driver('google')->redirect();
         } catch (Exception $e) {
@@ -38,46 +33,6 @@ class GoogleAuthController extends Controller
         } catch (Exception $e) {
             return redirect()->route('login')->with('error', 'Gagal login menggunakan Google: ' . $e->getMessage());
         }
-    }
-
-    /**
-     * Mock Google Login Page.
-     */
-    public function mockPage()
-    {
-        return view('auth.google-mock');
-    }
-
-    /**
-     * Handle Mock Google Login Callback.
-     */
-    public function mockCallback(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'role' => 'required|in:santri,admin',
-        ]);
-
-        $mockUser = new class($request->name, $request->email) {
-            public $id;
-            public $name;
-            public $email;
-            public $token = 'mock-google-token-xyz';
-            public $refreshToken = 'mock-google-refresh-token-xyz';
-
-            public function __construct($name, $email) {
-                $this->name = $name;
-                $this->email = $email;
-                $this->id = 'mock-' . md5($email);
-            }
-
-            public function getId() { return $this->id; }
-            public function getName() { return $this->name; }
-            public function getEmail() { return $this->email; }
-        };
-
-        return $this->loginOrCreateUser($mockUser, $request->role);
     }
 
     /**
