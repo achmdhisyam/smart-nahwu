@@ -14,6 +14,8 @@
   1. **Preprocessing & NLP Lokal**: Kalimat dinormalisasi, ditokenisasi, serta dianalisis struktur morfologi dasarnya (Sharaf) menggunakan Rule Engine lokal.
   2. **Prompt Engineering & Gemini API**: Hasil analisis awal NLP lokal digabungkan dengan aturan kitab *Al-Ajurrumiyyah* dan dikirim ke Gemini 2.5 Flash Lite API untuk dianalisis kedudukan sintaksis (*I'rab* & Nahwu) secara mendalam.
 - **Caching Layer Efisien**: Hasil analisis kalimat disimpan dalam database (`riwayat_analisis`) agar respons berikutnya untuk kalimat yang sama bersifat instan (<10ms) tanpa memakan kuota API.
+- **Modul Belajar (E-Book) Al-Ajurrumiyyah**: Buku bacaan interaktif yang menyajikan materi Matan Al-Ajurrumiyyah lengkap dengan definisi, kaidah gramatika, huruf tugas, dan contoh kalimat berharakat, dilengkapi navigasi dinamis dan pelacakan progres belajar.
+- **Google Login (OAuth)**: Sistem masuk (sign-in) cepat dan aman menggunakan akun Google terintegrasi via Laravel Socialite.
 - **Rujukan Al-Ajurrumiyyah**: Menautkan analisis sintaksis langsung ke bab dan pasal di kitab *Matan Al-Ajurrumiyyah*.
 - **Evaluasi & Kuis**: Menyediakan modul kuis interaktif per bab nahwu untuk melatih pemahaman tata bahasa santri.
 - **Panel Dashboard Multi-Role**: Fitur dashboard terpisah untuk **Admin** (mengelola modul kuis, bab, dan pengguna) dan **Santri** (melihat pencapaian, statistik kuis, dan riwayat analisis).
@@ -89,6 +91,12 @@ Buka file `.env` yang baru dibuat di root project Anda, lalu konfigurasikan hal-
 - **Gemini API Key**: Masukkan API key dari Google AI Studio untuk mengaktifkan analisis bertenaga AI.
   ```env
   GEMINI_API_KEY=your_gemini_api_key_here
+  ```
+- **Google OAuth Credentials**: Masukkan kredensial API OAuth Google Anda untuk mengaktifkan fitur Google Login.
+  ```env
+  GOOGLE_CLIENT_ID=your_google_client_id_here
+  GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+  GOOGLE_REDIRECT_URI="http://localhost:8000/auth/google/callback"
   ```
 
 ### 4. Seed Database
