@@ -59,7 +59,7 @@ class AnalisisController extends Controller
             );
 
             // Dapatkan ID riwayat yang baru disimpan untuk ditampilkan di halaman hasil
-            $hash = hash('sha256', preg_replace('/\s+/u', ' ', trim($inputText)));
+            $hash = app(\App\Services\Ai\CacheAnalisisService::class)->makeHash($inputText);
             $history = RiwayatAnalisis::where('text_hash', $hash)->first();
 
             return redirect()->route('analisis.show', $history->id);
@@ -77,6 +77,11 @@ class AnalisisController extends Controller
     public function show(int $id)
     {
         $history = RiwayatAnalisis::findOrFail($id);
+        
+        // Proteksi: Jika riwayat milik user terdaftar, hanya pemilik atau admin yang bisa mengakses
+        if ($history->user_id !== null && $history->user_id !== auth()->id() && auth()->user()?->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki otorisasi untuk mengakses riwayat analisis ini.');
+        }
 
         // Ambil referensi bab Jurumiyah terkait untuk ditampilkan di UI
         $chapterIds = collect($history->hasil_analisis['word_by_word_analysis'] ?? [])

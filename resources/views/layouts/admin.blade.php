@@ -141,6 +141,15 @@
                 Kelola Kaidah
             </a>
 
+            <!-- Kelola Contoh Kalimat Link -->
+            <a 
+                href="{{ route('admin.contoh.index') }}" 
+                class="flex items-center px-4 py-3 text-sm font-bold rounded-xl transition duration-150 group {{ request()->routeIs('admin.contoh.*') ? 'bg-[#dfb15b] text-[#1b4332] shadow-md' : 'text-[#fbf8f1] hover:bg-[#173b2c] hover:text-[#dfb15b]' }}"
+            >
+                <i class="fa-solid fa-pen-nib mr-3.5 text-base {{ request()->routeIs('admin.contoh.*') ? 'text-[#1b4332]' : 'text-[#dfb15b] group-hover:text-white' }} transition-colors"></i>
+                Kelola Contoh Kalimat
+            </a>
+
             <!-- Kelola Pengguna Link -->
             <a 
                 href="{{ route('admin.pengguna.index') }}" 

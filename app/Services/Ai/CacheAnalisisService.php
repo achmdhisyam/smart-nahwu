@@ -7,15 +7,17 @@ use App\Models\RiwayatAnalisis;
 class CacheAnalisisService
 {
     /**
-     * Membuat signature hash SHA-256 dari teks kalimat Arab.
+     * Membuat signature hash SHA-256 dari teks kalimat Arab yang telah dinormalisasi.
      *
      * @param string $text
      * @return string
      */
     public function makeHash(string $text): string
     {
-        // Normalisasi whitespace dasar sebelum hashing agar konsisten
-        $cleanText = preg_replace('/\s+/u', ' ', trim($text));
+        $normalizer = new \App\Services\Nlp\NormalisasiArabService();
+        $gundul = $normalizer->stripDiacritics($text);
+        $cleanText = $normalizer->normalize($gundul);
+        
         return hash('sha256', $cleanText);
     }
 

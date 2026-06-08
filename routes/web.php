@@ -30,7 +30,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Grup Rute Analisis Nahwu
 Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis.index');
-Route::post('/analisis', [AnalisisController::class, 'process'])->name('analisis.process');
+Route::post('/analisis', [AnalisisController::class, 'process'])->name('analisis.process')->middleware('throttle:10,1');
 Route::get('/analisis/riwayat/{id}', [AnalisisController::class, 'show'])->name('analisis.show');
 
 // Grup Rute Riwayat Analisis & Kuis (Harus Login)

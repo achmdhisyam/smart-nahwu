@@ -23,6 +23,24 @@
 
     <!-- Form Input Card -->
     <div class="kitab-box rounded-xl p-6 sm:p-8 relative overflow-hidden" x-data="{ isSubmitting: false }">
+        <!-- Loading Overlay -->
+        <div 
+            x-show="isSubmitting" 
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            class="absolute inset-0 bg-[#fbf8f1]/90 backdrop-blur-sm z-20 flex flex-col items-center justify-center space-y-4"
+            style="display: none;"
+        >
+            <div class="relative w-20 h-20 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full border-4 border-t-[#dfb15b] border-r-transparent border-b-[#dfb15b] border-l-transparent animate-spin"></div>
+                <i class="fa-solid fa-mosque text-3xl text-[#1b4332] animate-bounce"></i>
+            </div>
+            <div class="text-[#1b4332] font-extrabold text-lg tracking-wider animate-pulse">
+                Menganalisis...
+            </div>
+        </div>
+
         <form action="{{ route('analisis.process') }}" method="POST" class="space-y-6" @submit="isSubmitting = true">
             @csrf
             
