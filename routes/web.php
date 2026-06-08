@@ -6,13 +6,12 @@ use App\Http\Controllers\KuisController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LupaPasswordController;
-use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\BelajarController;
 use Illuminate\Support\Facades\Route;
 
 // Google Authentication Routes
-Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::get('/', function () {
     return view('welcome');

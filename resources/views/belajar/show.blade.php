@@ -6,7 +6,7 @@
 <div class="max-w-4xl mx-auto py-8 px-4 space-y-8">
     <!-- Breadcrumbs & Back Link -->
     <div class="flex items-center justify-between">
-        <a href="{{ route('belajar.index') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-[#1b4332] hover:underline">
+        <a href="{{ route('belajar.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
             <i class="fa-solid fa-arrow-left"></i>
             <span>Kembali ke Peta Belajar</span>
         </a>
