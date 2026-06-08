@@ -1,59 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart-Nahwu 📖✨
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net)
+[![Gemini](https://img.shields.io/badge/Gemini-2.5--Flash--Lite-orange?style=for-the-badge&logo=google-gemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## About Laravel
+**Smart-Nahwu** adalah sistem analisis tata bahasa Arab hibrida berbasis *Natural Language Processing* (NLP) lokal dan *Large Language Model* (LLM) Gemini. Aplikasi ini dirancang khusus untuk membantu santri dan pembelajar bahasa Arab pemula dalam menganalisis kedudukan sintaksis (*I'rab*) kata per kata berdasarkan standar kaidah kitab klasik **Matan Al-Ajurrumiyyah**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **🧠 Analisis Nahwu & Sharaf (Hibrida NLP - Gemini)**: Menganalisis kalimat Arab secara bertahap melalui alur:
+  1. **Preprocessing & NLP Lokal**: Kalimat dinormalisasi, ditokenisasi, serta dianalisis struktur morfologi dasarnya (Sharaf) menggunakan Rule Engine lokal.
+  2. **Prompt Engineering & Gemini API**: Hasil analisis awal NLP lokal digabungkan dengan aturan kitab *Al-Ajurrumiyyah* dan dikirim ke Gemini 2.5 Flash Lite API untuk dianalisis kedudukan sintaksis (*I'rab* & Nahwu) secara mendalam.
+- **⚡ Caching Layer Efisien**: Hasil analisis kalimat disimpan dalam database (`analisis_caches`) agar respons berikutnya untuk kalimat yang sama bersifat instan (<10ms) tanpa memakan kuota API.
+- **📜 Rujukan Al-Ajurrumiyyah**: Menautkan analisis sintaksis langsung ke bab dan pasal di kitab *Matan Al-Ajurrumiyyah*.
+- **📝 Evaluasi & Kuis**: Menyediakan modul kuis interaktif per bab nahwu untuk melatih pemahaman tata bahasa santri.
+- **🛡️ Panel Dashboard Multi-Role**: Fitur dashboard terpisah untuk **Admin** (mengelola modul kuis, bab, dan pengguna) dan **Santri** (melihat pencapaian, statistik kuis, dan riwayat analisis).
+- **✅ Keandalan Tinggi**: Diuji dengan *automated tests* (PHPUnit) untuk menjamin kualitas kode.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🏗️ Arsitektur Sistem
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Aplikasi ini menggunakan pola arsitektur **Model-View-Controller (MVC)** dengan alur pemrosesan **NLP - Gemini** sebagai berikut:
 
-## Laravel Sponsors
+```mermaid
+graph TD
+    User([Pengguna/Santri]) -->|Input Kalimat Arab| WebUI[Frontend Blade & CSS]
+    WebUI -->|Kirim Request| AnalisisController[Analisis Controller]
+    AnalisisController -->|Panggil| IntegrasiGeminiService[Integrasi Gemini Service]
+    
+    IntegrasiGeminiService -->|1. Cek Kalimat| CacheAnalisisService[Cache Analisis Service]
+    CacheAnalisisService -->|Ada Cache| DB[(Database Cache)]
+    CacheAnalisisService -->|Kembalikan Hasil Cache| AnalisisController
+    
+    IntegrasiGeminiService -->|2. Jika Tidak Ada Cache| NormalisasiArabService[Normalisasi Arab Service]
+    NormalisasiArabService -->|Tokenisasi & Deteksi Awal| RuleEngine[Rule-Based NLP Lokal]
+    RuleEngine -->|Hasil Analisis Awal| IntegrasiGeminiService
+    
+    IntegrasiGeminiService -->|3. Kirim Prompt Terstruktur| GeminiAPI[Gemini 2.5 Flash Lite API]
+    GeminiAPI -->|Respons JSON Raw| PemformatHasilService[Pemformat Hasil Service]
+    PemformatHasilService -->|JSON Bersih| CacheAnalisisService
+    CacheAnalisisService -->|Simpan & Kirim| AnalisisController
+    AnalisisController -->|Render View| WebUI
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🛠️ Tech Stack & Prasyarat
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **PHP**: `^8.2`
+- **Framework**: Laravel `^12.0`
+- **Database**: MySQL / MariaDB
+- **Node.js & NPM**: Untuk build asset frontend (Vite & CSS/JS)
+- **Gemini API Key**: Diperlukan untuk mode analisis online
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Panduan Instalasi & Penggunaan
 
-## Code of Conduct
+Ikuti langkah-langkah di bawah ini untuk menjalankan Smart-Nahwu di lokal Anda:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Klon Repositori
+```bash
+git clone https://github.com/achmdhisyam/smart-nahwu.git
+cd smart-nahwu
+```
 
-## Security Vulnerabilities
+### 2. Setup Otomatis (Direkomendasikan)
+Aplikasi ini sudah dilengkapi dengan script setup komposer pintar. Cukup jalankan perintah berikut untuk menginstal dependensi PHP, membuat file `.env`, men-generate aplikasi key, menginstal package NPM, dan melakukan build asset:
+```bash
+composer run setup
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Konfigurasi Environment (`.env`)
+Buka file `.env` yang baru dibuat di root project Anda, lalu konfigurasikan hal-hal berikut:
 
-## License
+- **Database**: Sesuaikan koneksi DB sesuai server lokal Anda (misalnya Laragon/XAMPP).
+  ```env
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=smart_nahwu
+  DB_USERNAME=root
+  DB_PASSWORD=
+  ```
+- **Gemini API Key**: Masukkan API key dari Google AI Studio untuk mengaktifkan analisis bertenaga AI.
+  ```env
+  GEMINI_API_KEY=your_gemini_api_key_here
+  ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Seed Database
+Masukkan data awal (bab nahwu, kuis, dan pencapaian) ke database:
+```bash
+php artisan db:seed
+```
+
+### 5. Jalankan Server Pengembangan
+Gunakan perintah pintas composer berikut untuk menjalankan server Laravel, Vite, dan queue secara bersamaan:
+```bash
+composer run dev
+```
+Buka [http://127.0.0.1:8000](http://127.0.0.1:8000) pada browser Anda.
+
+---
+
+
