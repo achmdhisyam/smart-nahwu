@@ -6,9 +6,6 @@
 <div class="max-w-4xl mx-auto space-y-8 py-8">
     <!-- Header -->
     <div class="text-center space-y-3">
-        <span class="px-3 py-1 bg-[#1b4332]/10 text-[#1b4332] text-xs font-semibold rounded-full uppercase tracking-wider">
-            E-Book & Modul Interaktif
-        </span>
         <h1 class="text-4xl font-extrabold text-[#1b4332] tracking-tight">
             Kitab Matan Al-Ajurrumiyyah
         </h1>

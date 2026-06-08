@@ -3,7 +3,7 @@
 @section('title', 'Smart Nahwu - Asisten Pembelajaran Jurumiyah')
 
 @section('content')
-<div class="max-w-6xl mx-auto space-y-16 py-8 md:py-12">
+<div class="max-w-6xl mx-auto space-y-12 md:space-y-16 py-8 md:py-12">
     
     <!-- Hero Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-12">
@@ -61,6 +61,73 @@
         </div>
     </div>
 
+    <!-- Quick Access Portal (Bespoke Book Index Style) -->
+    <div class="space-y-5 bg-[#fdfbf7] pt-4 pb-5 px-5 md:pt-5 md:pb-6 md:px-6 rounded-2xl border border-[#e6dec9] shadow-sm relative overflow-hidden">
+        <!-- Decorative subtle pattern overlay -->
+        <div class="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#1b4332_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+        <div class="text-center md:text-left border-b border-[#e6dec9]/60 pb-3.5 relative z-10">
+            <p class="text-xl font-extrabold text-[#1b4332]">Langkah Cepat Belajar Nahwu</p>
+        </div>
+
+        <div class="divide-y divide-[#e6dec9]/60 relative z-10">
+            <!-- Step 1 -->
+            <div class="py-5 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-center justify-between gap-5 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-[#1b4332]/10 text-[#1b4332] flex items-center justify-center text-base flex-shrink-0 mt-0.5 transition-all duration-300 group-hover:bg-[#1b4332] group-hover:text-white">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-base font-bold text-[#1b4332]">Belajar Al-Ajurrumiyyah</h4>
+                        <p class="text-[#5c6f60] text-sm max-w-xl">Pelajari materi Nahwu secara terstruktur dari Bab Kalam hingga Bab Majrurat.</p>
+                    </div>
+                </div>
+                <a href="{{ route('belajar.index') }}" class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#1b4332] hover:bg-[#b45309] text-[#fbf8f1] hover:text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-sm group-hover:shadow text-center">
+                    <span>Pelajari Materi</span>
+                    <i class="fa-solid fa-arrow-right-long text-[10px] group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="py-5 flex flex-col md:flex-row md:items-center justify-between gap-5 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-[#b45309]/10 text-[#b45309] flex items-center justify-center text-base flex-shrink-0 mt-0.5 transition-all duration-300 group-hover:bg-[#b45309] group-hover:text-white">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-base font-bold text-[#1b4332]">Analisis Kalimat AI</h4>
+                        <p class="text-[#5c6f60] text-sm max-w-xl">Bedah kedudukan kata, status I'rab, dan alasannya secara instan menggunakan kecerdasan buatan.</p>
+                    </div>
+                </div>
+                <a href="{{ route('analisis.index') }}" class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#1b4332] hover:bg-[#b45309] text-[#fbf8f1] hover:text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-sm group-hover:shadow text-center">
+                    <span>Mulai Analisis</span>
+                    <i class="fa-solid fa-arrow-right-long text-[10px] group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="py-5 last:pb-0 flex flex-col md:flex-row md:items-center justify-between gap-5 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-[#dfb15b]/20 text-amber-800 flex items-center justify-center text-base flex-shrink-0 mt-0.5 transition-all duration-300 group-hover:bg-[#dfb15b] group-hover:text-[#1b4332]">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-base font-bold text-[#1b4332]">Latihan Kuis</h4>
+                        <p class="text-[#5c6f60] text-sm max-w-xl">Uji pemahaman materi Nahwu Anda melalui latihan kuis per bab.</p>
+                    </div>
+                </div>
+                @auth
+                    <a href="{{ route('kuis.index') }}" class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#1b4332] hover:bg-[#b45309] text-[#fbf8f1] hover:text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-sm group-hover:shadow text-center">
+                @else
+                    <a href="javascript:void(0)" onclick="showLoginAlert()" class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#1b4332] hover:bg-[#b45309] text-[#fbf8f1] hover:text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-sm group-hover:shadow text-center">
+                @endauth
+                    <span>Mulai Latihan</span>
+                    <i class="fa-solid fa-arrow-right-long text-[10px] group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Features Section -->
     <div class="py-12 border-t border-[#e6dec9]">
         <div class="text-center mb-12">
@@ -68,36 +135,47 @@
             <p class="text-[#4a5d4e] mt-2 font-medium">Didesain khusus untuk mempercepat pemahaman nahwu</p>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Feature 1 -->
-            <div class="kitab-box p-8 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300">
-                <div class="w-16 h-16 mx-auto bg-[#1b4332]/10 text-[#1b4332] rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Feature 1: Belajar Jurumiyah -->
+            <div class="kitab-box p-6 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300 bg-white">
+                <div class="w-14 h-14 mx-auto bg-[#1b4332]/10 text-[#1b4332] rounded-2xl flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
+                    <i class="fa-solid fa-book-quran"></i>
+                </div>
+                <h3 class="text-lg font-bold text-[#1b4332] mb-2.5">Belajar Al-Ajurrumiyyah</h3>
+                <p class="text-[#4a5d4e] text-xs leading-relaxed">
+                    Pelajari kaidah tata bahasa Arab secara bertahap langsung dari naskah asli Kitab Matan Al-Ajurrumiyyah yang lengkap.
+                </p>
+            </div>
+
+            <!-- Feature 2: Analisis I'rab AI -->
+            <div class="kitab-box p-6 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300 bg-white">
+                <div class="w-14 h-14 mx-auto bg-[#b45309]/10 text-[#b45309] rounded-2xl flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
                     <i class="fa-solid fa-robot"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#1b4332] mb-3">Analisis I'rab AI</h3>
-                <p class="text-[#4a5d4e] text-sm leading-relaxed">
-                    Bedah struktur kalimat secara instan. Menampilkan kedudukan kata, harakat akhir, dan alasan nahwunya berdasarkan kitab Jurumiyah.
+                <h3 class="text-lg font-bold text-[#1b4332] mb-2.5">Analisis I'rab AI</h3>
+                <p class="text-[#4a5d4e] text-xs leading-relaxed">
+                    Bedah struktur kalimat secara instan. Menampilkan kedudukan kata, harakat akhir, dan alasannya berdasarkan kitab Jurumiyah.
                 </p>
             </div>
             
-            <!-- Feature 2 -->
-            <div class="kitab-box p-8 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300">
-                <div class="w-16 h-16 mx-auto bg-[#b45309]/10 text-[#b45309] rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+            <!-- Feature 3: Latihan Kuis -->
+            <div class="kitab-box p-6 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300 bg-white">
+                <div class="w-14 h-14 mx-auto bg-amber-500/10 text-amber-700 rounded-2xl flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
                     <i class="fa-solid fa-gamepad"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#1b4332] mb-3">Latihan Kuis </h3>
-                <p class="text-[#4a5d4e] text-sm leading-relaxed">
-                    Evaluasi pemahaman Anda melalui kuis pilihan ganda yang disusun per bab.
+                <h3 class="text-lg font-bold text-[#1b4332] mb-2.5">Latihan Kuis</h3>
+                <p class="text-[#4a5d4e] text-xs leading-relaxed">
+                    Evaluasi pemahaman materi Anda melalui berbagai latihan kuis pilihan ganda terstruktur yang disediakan di setiap bab.
                 </p>
             </div>
             
-            <!-- Feature 3 -->
-            <div class="kitab-box p-8 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300">
-                <div class="w-16 h-16 mx-auto bg-[#dfb15b]/20 text-[#b45309] rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+            <!-- Feature 4: Riwayat & Statistik -->
+            <div class="kitab-box p-6 rounded-2xl text-center group hover:border-[#dfb15b] transition duration-300 bg-white">
+                <div class="w-14 h-14 mx-auto bg-[#dfb15b]/20 text-[#b45309] rounded-2xl flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#1b4332] mb-3">Riwayat & Statistik Belajar</h3>
-                <p class="text-[#4a5d4e] text-sm leading-relaxed">
+                <h3 class="text-lg font-bold text-[#1b4332] mb-2.5">Riwayat & Statistik</h3>
+                <p class="text-[#4a5d4e] text-xs leading-relaxed">
                     Pantau progres belajar Anda. Semua riwayat analisis kalimat dan perolehan nilai kuis akan disimpan untuk bahan evaluasi.
                 </p>
             </div>

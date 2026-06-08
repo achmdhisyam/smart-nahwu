@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between">
         <a href="{{ route('belajar.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
             <i class="fa-solid fa-arrow-left"></i>
-            <span>Kembali ke Peta Belajar</span>
+            <span>Kembali ke Belajar Al-Ajurrumiyyah</span>
         </a>
 
         @if(Auth::check())

@@ -294,8 +294,8 @@
         <!-- Footer -->
         <footer class="py-6 text-center border-t border-[#e6dec9] text-xs text-[#5c6f60] bg-[#fbf8f1] flex items-center justify-center gap-1.5">
             <span>&copy; {{ date('Y') }} Smart Nahwu</span>
-            <span class="bg-[#1b4332]/10 text-[#1b4332] px-2 py-0.5 rounded-full font-bold text-[10px]">v{{ config('app.version') }}</span>
-            <span>. Media belajar tata bahasa kitab Jurumiyah.</span>
+            <span>•</span>
+            <span>v{{ config('app.version') }}</span>
         </footer>
     </div>
 
