@@ -50,10 +50,10 @@
                     @foreach($q['options'] as $option)
                         <label 
                             :class="{
-                                'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500': selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}',
+                                'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500': (selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}') || (selectedOption !== '' && '{{ $option['id'] }}' === '{{ $q['correct_answer'] ?? '' }}'),
                                 'border-rose-500 bg-rose-50 ring-1 ring-rose-500': selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}',
-                                'border-[#1b4332] bg-[#1b4332]/5 ring-1 ring-[#1b4332]': selectedOption === '{{ $option['id'] }}' && !'{{ $q['correct_answer'] ?? '' }}',
-                                'border-[#e6dec9] bg-white hover:bg-[#fcfbfa] border': selectedOption !== '{{ $option['id'] }}'
+                                'border-[#e6dec9] bg-white hover:bg-[#fcfbfa] border': selectedOption !== '{{ $option['id'] }}' && (selectedOption === '' || '{{ $option['id'] }}' !== '{{ $q['correct_answer'] ?? '' }}'),
+                                'pointer-events-none opacity-90': selectedOption !== ''
                             }"
                             class="flex items-center space-x-3 p-4 rounded-xl cursor-pointer transition duration-150 relative overflow-hidden"
                         >
@@ -62,15 +62,15 @@
                                 name="answers[{{ $q['id'] }}]" 
                                 value="{{ $option['id'] }}" 
                                 x-model="selectedOption"
+                                :disabled="selectedOption !== ''"
                                 required
                                 class="h-4 w-4 text-[#1b4332] focus:ring-[#1b4332] border-[#e6dec9] bg-[#fcfbfa]"
                             />
                             <span 
                                 :class="{
-                                    'bg-emerald-600 text-white border-emerald-700': selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}',
+                                    'bg-emerald-600 text-white border-emerald-700': (selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}') || (selectedOption !== '' && '{{ $option['id'] }}' === '{{ $q['correct_answer'] ?? '' }}'),
                                     'bg-rose-600 text-white border-rose-700': selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}',
-                                    'bg-[#b45309] text-white border-[#b45309]': selectedOption === '{{ $option['id'] }}' && !'{{ $q['correct_answer'] ?? '' }}',
-                                    'bg-[#fff2cc] text-[#b45309] border-[#ffe599]': selectedOption !== '{{ $option['id'] }}'
+                                    'bg-[#fff2cc] text-[#b45309] border-[#ffe599]': selectedOption === '' || (selectedOption !== '{{ $option['id'] }}' && '{{ $option['id'] }}' !== '{{ $q['correct_answer'] ?? '' }}')
                                 }"
                                 class="text-xs font-bold px-2 py-0.5 rounded-md border"
                             >
@@ -79,7 +79,7 @@
                             <span class="text-sm text-[#2b3a32] font-semibold flex-1">{{ $option['text'] }}</span>
 
                             <!-- Ikon Visual Feedback -->
-                            <div x-show="selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}'" class="absolute right-4 text-emerald-500 text-xl" style="display: none;">
+                            <div x-show="(selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}') || (selectedOption !== '' && '{{ $option['id'] }}' === '{{ $q['correct_answer'] ?? '' }}')" class="absolute right-4 text-emerald-500 text-xl" style="display: none;">
                                 <i class="fa-solid fa-circle-check"></i>
                             </div>
                             <div x-show="selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}'" class="absolute right-4 text-rose-500 text-xl" style="display: none;">
