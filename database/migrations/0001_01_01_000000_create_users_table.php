@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('google_id')->nullable()->unique();
+            $table->text('google_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
+            $table->string('password')->nullable();
             $table->enum('role', ['santri', 'admin'])->default('santri')->index();
             $table->rememberToken();
             $table->timestamps();
