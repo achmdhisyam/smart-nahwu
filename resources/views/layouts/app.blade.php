@@ -131,6 +131,15 @@
                 </a>
                 @endauth
 
+                <!-- Modul Belajar Link -->
+                <a 
+                    href="{{ route('belajar.index') }}" 
+                    class="flex items-center px-4 py-3 text-sm font-bold rounded-xl transition duration-150 group {{ request()->routeIs('belajar*') ? 'bg-[#dfb15b] text-[#1b4332] shadow-md' : 'text-[#fbf8f1] hover:bg-[#173b2c] hover:text-[#dfb15b]' }}"
+                >
+                    <i class="fa-solid fa-book-open mr-3.5 text-base {{ request()->routeIs('belajar*') ? 'text-[#1b4332]' : 'text-[#dfb15b] group-hover:text-white' }} transition-colors"></i>
+                    Modul Belajar
+                </a>
+
                 <!-- Analisis Baru Link -->
                 <a 
                     href="/analisis" 
@@ -229,6 +238,7 @@
 
                         <!-- Desktop links for Guests -->
                         <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+                            <a href="{{ route('belajar.index') }}" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Modul Belajar</a>
                             <a href="/analisis" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Analisis Baru</a>
                             <a href="javascript:void(0)" onclick="showLoginAlert()" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-1">Latihan Kuis</a>
                             <span class="text-[#dfb15b]/40">|</span>
@@ -260,6 +270,7 @@
                         x-cloak
                     >
                         <nav class="flex flex-col space-y-4 text-sm font-semibold w-full">
+                            <a href="{{ route('belajar.index') }}" @click="mobileMenuOpen = false" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-2 block">Modul Belajar</a>
                             <a href="/analisis" @click="mobileMenuOpen = false" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-2 block">Analisis Baru</a>
                             <a href="javascript:void(0)" onclick="mobileMenuOpen = false; showLoginAlert()" class="hover:text-[#dfb15b] text-[#fbf8f1] transition py-2 block">Latihan Kuis</a>
                             

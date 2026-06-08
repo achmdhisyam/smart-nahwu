@@ -6,7 +6,15 @@ use App\Http\Controllers\KuisController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LupaPasswordController;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\BelajarController;
 use Illuminate\Support\Facades\Route;
+
+// Google Authentication Routes
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::get('/auth/google/mock', [GoogleAuthController::class, 'mockPage'])->name('auth.google.mock');
+Route::post('/auth/google/mock/callback', [GoogleAuthController::class, 'mockCallback'])->name('auth.google.mock.callback');
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,10 +41,17 @@ Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis.in
 Route::post('/analisis', [AnalisisController::class, 'process'])->name('analisis.process')->middleware('throttle:10,1');
 Route::get('/analisis/riwayat/{hash}', [AnalisisController::class, 'show'])->name('analisis.show');
 
+// Modul Belajar (E-Book)
+Route::get('/belajar', [BelajarController::class, 'index'])->name('belajar.index');
+Route::get('/belajar/bab/{hash}', [BelajarController::class, 'show'])->name('belajar.show');
+
 // Grup Rute Riwayat Analisis & Kuis (Harus Login)
 Route::middleware(['auth'])->group(function () {
     // Dashboard Santri
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+    // Modul Belajar
+    Route::post('/belajar/bab/{hash}/selesai', [BelajarController::class, 'complete'])->name('belajar.complete');
 
     // Riwayat
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
