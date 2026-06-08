@@ -8,6 +8,7 @@ use App\Models\KaidahGramatika;
 use App\Models\BabJurumiyah;
 use App\Services\Nlp\MesinSmartNahwu;
 use App\Services\Ai\IntegrasiGeminiService;
+use App\Helpers\HashidsHelper;
 
 class AnalisisController extends Controller
 {
@@ -62,7 +63,7 @@ class AnalisisController extends Controller
             $hash = app(\App\Services\Ai\CacheAnalisisService::class)->makeHash($inputText);
             $history = RiwayatAnalisis::where('text_hash', $hash)->first();
 
-            return redirect()->route('analisis.show', $history->id);
+            return redirect()->route('analisis.show', HashidsHelper::encode($history->id));
 
         } catch (\Exception $e) {
             return back()
@@ -74,14 +75,14 @@ class AnalisisController extends Controller
     /**
      * Tampilkan detail hasil analisis berdasarkan riwayat/cache.
      */
-    public function show(int $id)
+    public function show(string $hash)
     {
-        $history = RiwayatAnalisis::findOrFail($id);
-        
-        // Proteksi: Jika riwayat milik user terdaftar, hanya pemilik atau admin yang bisa mengakses
-        if ($history->user_id !== null && $history->user_id !== auth()->id() && auth()->user()?->role !== 'admin') {
-            abort(403, 'Anda tidak memiliki otorisasi untuk mengakses riwayat analisis ini.');
+        $id = HashidsHelper::decode($hash);
+        if (!$id) {
+            abort(404);
         }
+
+        $history = RiwayatAnalisis::findOrFail($id);
 
         // Ambil referensi bab Jurumiyah terkait untuk ditampilkan di UI
         $chapterIds = collect($history->hasil_analisis['word_by_word_analysis'] ?? [])

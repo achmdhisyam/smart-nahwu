@@ -156,7 +156,7 @@
                                 <span class="text-xs font-bold px-2 py-0.5 rounded {{ $badgeColor }}">
                                     {{ number_format($attempt->skor, 0) }}
                                 </span>
-                                <a href="{{ route('kuis.result', $attempt->id) }}" class="text-xs text-[#b45309] hover:underline font-bold">Detail</a>
+                                <a href="{{ route('kuis.result', App\Helpers\HashidsHelper::encode($attempt->id)) }}" class="text-xs text-[#b45309] hover:underline font-bold">Detail</a>
                             </div>
                         </div>
                     @empty

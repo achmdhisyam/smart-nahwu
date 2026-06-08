@@ -31,7 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Grup Rute Analisis Nahwu
 Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis.index');
 Route::post('/analisis', [AnalisisController::class, 'process'])->name('analisis.process')->middleware('throttle:10,1');
-Route::get('/analisis/riwayat/{id}', [AnalisisController::class, 'show'])->name('analisis.show');
+Route::get('/analisis/riwayat/{hash}', [AnalisisController::class, 'show'])->name('analisis.show');
 
 // Grup Rute Riwayat Analisis & Kuis (Harus Login)
 Route::middleware(['auth'])->group(function () {
@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kuis', [KuisController::class, 'index'])->name('kuis.index');
     Route::get('/kuis/bab/{id}', [KuisController::class, 'show'])->name('kuis.show');
     Route::post('/kuis/submit/{id}', [KuisController::class, 'submit'])->name('kuis.submit');
-    Route::get('/kuis/hasil/{id}', [KuisController::class, 'result'])->name('kuis.result');
+    Route::get('/kuis/hasil/{hash}', [KuisController::class, 'result'])->name('kuis.result');
 
     // Profil & Password
     Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');

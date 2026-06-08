@@ -89,7 +89,7 @@
                                 <td class="py-4 px-2 text-right flex items-center justify-end space-x-2">
                                     <!-- Tombol Detail -->
                                     <a 
-                                        href="{{ route('analisis.show', $history->id) }}" 
+                                        href="{{ route('analisis.show', App\Helpers\HashidsHelper::encode($history->id)) }}" 
                                         class="px-3 py-1.5 bg-[#1b4332]/10 text-[#1b4332] border border-[#1b4332]/20 hover:bg-[#1b4332] hover:text-white rounded-lg text-xs font-bold transition flex items-center space-x-1"
                                     >
                                         <span>Lihat Detail</span>

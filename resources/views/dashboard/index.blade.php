@@ -72,7 +72,7 @@
                                     <p class="text-[10px] text-[#5c6f60] mt-1 font-semibold">{{ $riwayat->created_at->diffForHumans() }}</p>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <a href="{{ route('analisis.show', $riwayat->id) }}" class="w-8 h-8 rounded-full bg-[#1b4332]/10 text-[#1b4332] hover:bg-[#1b4332] hover:text-white flex items-center justify-center transition">
+                                    <a href="{{ route('analisis.show', App\Helpers\HashidsHelper::encode($riwayat->id)) }}" class="w-8 h-8 rounded-full bg-[#1b4332]/10 text-[#1b4332] hover:bg-[#1b4332] hover:text-white flex items-center justify-center transition">
                                         <i class="fa-solid fa-chevron-right text-xs"></i>
                                     </a>
                                 </div>

@@ -10,6 +10,7 @@ use App\Services\Kuis\HasilKuisService;
 use App\Services\Kuis\KuisService;
 use App\Services\Pembelajaran\AlurBelajarService;
 use Illuminate\Http\Request;
+use App\Helpers\HashidsHelper;
 
 class KuisController extends Controller
 {
@@ -95,17 +96,22 @@ class KuisController extends Controller
         // Hitung nilai dan simpan ke database
         $attempt = $this->resultService->gradeAndSave($quiz, $answers, $userId);
 
-        return redirect()->route('kuis.result', $attempt->id)->with('quiz_submitted', true);
+        return redirect()->route('kuis.result', HashidsHelper::encode($attempt->id))->with('quiz_submitted', true);
     }
 
     /**
      * Menampilkan lembar hasil pengerjaan kuis beserta pembahasan lengkap.
      */
-    public function result(int $attemptId)
+    public function result(string $hash)
     {
         $userId = auth()->id();
+        $id = HashidsHelper::decode($hash);
+        if (!$id) {
+            abort(404);
+        }
+
         $attempt = RiwayatKuis::with('kuis.bab')
-            ->where('id', $attemptId)
+            ->where('id', $id)
             ->where('user_id', $userId)
             ->firstOrFail();
 
