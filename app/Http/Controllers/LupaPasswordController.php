@@ -38,7 +38,7 @@ class LupaPasswordController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with('status', 'Kami telah mengirimkan tautan reset password ke email Anda (Silakan cek log Laravel jika di lokal).')
+            ? back()->with('status', 'Kami telah mengirimkan tautan reset password ke email Anda. Silakan periksa kotak masuk atau folder spam Anda.')
             : back()->withErrors(['email' => 'Gagal mengirimkan email reset password.']);
     }
 
