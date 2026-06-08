@@ -18,7 +18,19 @@
         <form action="{{ route('register') }}" method="POST" class="space-y-4">
             @csrf
 
-            <!-- Errors -->
+            <!-- Session Messages & Errors -->
+            @if(session('error'))
+                <div class="p-4 bg-rose-100 border border-rose-200 rounded-xl text-rose-800 text-xs">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if(session('success'))
+                <div class="p-4 bg-emerald-100 border border-emerald-200 rounded-xl text-emerald-800 text-xs">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @if($errors->any())
                 <div class="p-4 bg-rose-100 border border-rose-200 rounded-xl text-rose-800 text-xs">
                     {{ $errors->first() }}
