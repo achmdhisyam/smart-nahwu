@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Kelola Kaidah - Smart Nahwu')
 
@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-extrabold text-[#1b4332]">Kelola Kaidah Jurumiyah</h1>
             <p class="text-sm text-[#5c6f60]">Daftar kaidah tata bahasa Arab untuk acuan analisis parser & AI.</p>
         </div>
-        <a href="{{ route('admin.rules.create') }}" class="px-4 py-2 bg-[#1b4332] hover:bg-[#2d5a45] text-white text-xs font-bold rounded-xl transition border border-[#1b4332] shadow-sm">
+        <a href="{{ route('admin.kaidah.create') }}" class="px-4 py-2 bg-[#1b4332] hover:bg-[#2d5a45] text-white text-xs font-bold rounded-xl transition border border-[#1b4332] shadow-sm">
             + Tambah Kaidah Baru
         </a>
     </div>
@@ -42,10 +42,10 @@
                             <td class="px-6 py-4 text-xs text-[#5c6f60] max-w-sm leading-relaxed">{{ $rule->teks_kaidah }}</td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex justify-center items-center space-x-2">
-                                    <a href="{{ route('admin.rules.edit', $rule->id) }}" class="px-3 py-1.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#2b3a32] text-xs font-bold rounded-lg border border-[#e6dec9] transition">
+                                    <a href="{{ route('admin.kaidah.edit', $rule->id) }}" class="px-3 py-1.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#2b3a32] text-xs font-bold rounded-lg border border-[#e6dec9] transition">
                                         Edit
                                     </a>
-                                    <form action="{{ route('admin.rules.destroy', $rule->id) }}" method="POST" class="inline m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kaidah ini?')">
+                                    <form action="{{ route('admin.kaidah.destroy', $rule->id) }}" method="POST" class="inline m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kaidah ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 border border-rose-200 text-rose-800 text-xs font-bold rounded-lg transition cursor-pointer">

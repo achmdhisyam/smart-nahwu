@@ -95,7 +95,7 @@ class KuisController extends Controller
         // Hitung nilai dan simpan ke database
         $attempt = $this->resultService->gradeAndSave($quiz, $answers, $userId);
 
-        return redirect()->route('kuis.result', $attempt->id);
+        return redirect()->route('kuis.result', $attempt->id)->with('quiz_submitted', true);
     }
 
     /**

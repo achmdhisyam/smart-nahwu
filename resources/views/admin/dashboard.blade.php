@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Dashboard Admin - Smart Nahwu')
 
@@ -10,21 +10,10 @@
             <h1 class="text-3xl font-extrabold text-[#1b4332]">Panel Pemantauan Admin</h1>
             <p class="text-sm text-[#5c6f60]">Statistik performa aplikasi, log riwayat analisis, kuis, dan monitoring sistem.</p>
         </div>
-        <div class="flex items-center space-x-2">
-            <a href="/admin/chapters" class="px-4 py-2 bg-[#1b4332] hover:bg-[#2d5a45] text-white text-xs font-bold rounded-xl transition border border-[#1b4332]">
-                Kelola Bab Jurumiyah
-            </a>
-            <a href="/admin/rules" class="px-4 py-2 bg-[#b45309] hover:bg-[#9a4004] text-white text-xs font-bold rounded-xl transition border border-[#b45309]">
-                Kelola Kaidah
-            </a>
-            <a href="{{ route('admin.pengguna.index') }}" class="px-4 py-2 bg-[#dfb15b] hover:bg-[#cfa149] text-white text-xs font-bold rounded-xl transition border border-[#dfb15b]">
-                Kelola Pengguna
-            </a>
-        </div>
     </div>
 
     <!-- Metrik Statistik Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Users Card -->
         <div class="glass bg-white p-6 rounded-3xl border border-[#e6dec9] flex items-center space-x-4">
             <div class="w-12 h-12 bg-[#1b4332]/10 text-[#1b4332] rounded-2xl flex items-center justify-center">
@@ -55,17 +44,6 @@
             <div>
                 <span class="text-xs text-[#5c6f60] block uppercase font-bold">Total Ujian Kuis</span>
                 <span class="text-2xl font-extrabold text-[#133827]">{{ $totalQuizzes }}</span>
-            </div>
-        </div>
-
-        <!-- Caching Card -->
-        <div class="glass bg-white p-6 rounded-3xl border border-[#e6dec9] flex items-center space-x-4">
-            <div class="w-12 h-12 bg-[#1b4332]/10 text-[#1b4332] rounded-2xl flex items-center justify-center">
-                <i class="fa-solid fa-bolt text-lg"></i>
-            </div>
-            <div>
-                <span class="text-xs text-[#5c6f60] block uppercase font-bold">Efisiensi Cache</span>
-                <span class="text-2xl font-extrabold text-[#133827]">{{ $cacheEfficiency }}%</span>
             </div>
         </div>
     </div>

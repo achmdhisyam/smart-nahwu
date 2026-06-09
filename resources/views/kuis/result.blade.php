@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto space-y-8">
     <!-- Header/Back Navigation -->
     <div>
-        <a href="{{ route('kuis.index') }}" class="text-sm font-semibold text-[#1b4332] hover:text-[#b45309] flex items-center space-x-2">
+        <a href="{{ route('kuis.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
             <i class="fa-solid fa-arrow-left"></i>
             <span>Kembali ke Menu Kuis</span>
         </a>
@@ -87,4 +87,43 @@
         @endforeach
     </div>
 </div>
+
+@if(session('quiz_submitted'))
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const score = {{ $attempt->skor }};
+    const passed = score >= 70;
+
+    if (score === 100) {
+        Swal.fire({
+            title: 'Sempurna! Mumtaz!',
+            text: 'Anda mendapatkan nilai 100. Luar biasa!',
+            icon: 'success',
+            confirmButtonText: 'Lanjut',
+            confirmButtonColor: '#1b4332',
+            backdrop: `rgba(27, 67, 50, 0.4)`
+        });
+        // trigger confetti if possible, simple alert for now
+    } else if (passed) {
+        Swal.fire({
+            title: 'Selamat!',
+            text: 'Anda lulus kuis ini dengan nilai ' + score,
+            icon: 'success',
+            confirmButtonText: 'Bagus',
+            confirmButtonColor: '#1b4332'
+        });
+    } else {
+        Swal.fire({
+            title: 'Jangan Menyerah!',
+            text: 'Nilai Anda ' + score + '. Pelajari lagi pembahasannya dan coba lagi!',
+            icon: 'info',
+            confirmButtonText: 'Oke',
+            confirmButtonColor: '#b45309'
+        });
+    }
+});
+</script>
+@endpush
+@endif
 @endsection

@@ -1,13 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Manajemen Pengguna - Admin Smart Nahwu')
 
 @section('content')
 <div class="max-w-5xl mx-auto space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div class="space-y-1">
-            <a href="{{ route('admin.dashboard') }}" class="text-xs text-[#1b4332] hover:text-[#b45309] font-bold">← Kembali ke Dashboard</a>
             <h1 class="text-3xl font-extrabold text-[#1b4332]">Manajemen Pengguna</h1>
             <p class="text-sm text-[#5c6f60]">Tambah, edit, dan hapus data santri maupun admin sistem.</p>
         </div>

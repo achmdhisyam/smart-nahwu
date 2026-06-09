@@ -51,28 +51,38 @@
                 >
             </div>
 
-            <div class="space-y-1">
+            <div class="space-y-1" x-data="{ show: false }">
                 <label for="password" class="block text-xs font-semibold text-[#1b4332] uppercase tracking-wider">Kata Sandi</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332]"
-                    placeholder="Minimal 8 karakter"
-                    required
-                >
+                <div class="relative">
+                    <input 
+                        :type="show ? 'text' : 'password'" 
+                        name="password" 
+                        id="password" 
+                        class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332] pr-10"
+                        placeholder="Minimal 8 karakter"
+                        required
+                    >
+                    <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                        <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="space-y-1">
+            <div class="space-y-1" x-data="{ show: false }">
                 <label for="password_confirmation" class="block text-xs font-semibold text-[#1b4332] uppercase tracking-wider">Konfirmasi Kata Sandi</label>
-                <input 
-                    type="password" 
-                    name="password_confirmation" 
-                    id="password_confirmation" 
-                    class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332]"
-                    placeholder="Ulangi kata sandi"
-                    required
-                >
+                <div class="relative">
+                    <input 
+                        :type="show ? 'text' : 'password'" 
+                        name="password_confirmation" 
+                        id="password_confirmation" 
+                        class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332] pr-10"
+                        placeholder="Ulangi kata sandi"
+                        required
+                    >
+                    <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                        <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                </div>
             </div>
 
             <button 

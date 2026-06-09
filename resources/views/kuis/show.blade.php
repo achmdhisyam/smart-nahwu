@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto space-y-6" x-data="{ currentStep: 0, totalSteps: {{ count($quiz->data_pertanyaan['questions']) }} }">
     <!-- Breadcrumb -->
     <div>
-        <a href="{{ route('kuis.index') }}" class="text-sm font-semibold text-[#1b4332] hover:text-[#b45309] flex items-center space-x-2">
+        <a href="{{ route('kuis.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
             <i class="fa-solid fa-arrow-left"></i>
             <span>Batal & Kembali</span>
         </a>
@@ -28,6 +28,7 @@
         @foreach($quiz->data_pertanyaan['questions'] as $index => $q)
             <div 
                 x-show="currentStep === {{ $index }}" 
+                x-data="{ selectedOption: '' }"
                 class="kitab-box p-6 sm:p-8 rounded-xl space-y-6 shadow-md"
                 x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="opacity-0 scale-95"
@@ -48,17 +49,42 @@
                 <div class="grid grid-cols-1 gap-3">
                     @foreach($q['options'] as $option)
                         <label 
-                            class="flex items-center space-x-3 p-4 bg-white hover:bg-[#fcfbfa] border border-[#e6dec9] hover:border-[#1b4332]/40 rounded-xl cursor-pointer transition duration-150"
+                            :class="{
+                                'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500': selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}',
+                                'border-rose-500 bg-rose-50 ring-1 ring-rose-500': selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}',
+                                'border-[#1b4332] bg-[#1b4332]/5 ring-1 ring-[#1b4332]': selectedOption === '{{ $option['id'] }}' && !'{{ $q['correct_answer'] ?? '' }}',
+                                'border-[#e6dec9] bg-white hover:bg-[#fcfbfa] border': selectedOption !== '{{ $option['id'] }}'
+                            }"
+                            class="flex items-center space-x-3 p-4 rounded-xl cursor-pointer transition duration-150 relative overflow-hidden"
                         >
                             <input 
                                 type="radio" 
                                 name="answers[{{ $q['id'] }}]" 
                                 value="{{ $option['id'] }}" 
+                                x-model="selectedOption"
                                 required
                                 class="h-4 w-4 text-[#1b4332] focus:ring-[#1b4332] border-[#e6dec9] bg-[#fcfbfa]"
                             />
-                            <span class="text-xs font-bold text-[#b45309] px-2 py-0.5 bg-[#fff2cc] border border-[#ffe599] rounded-md">{{ $option['id'] }}</span>
-                            <span class="text-sm text-[#2b3a32] font-semibold">{{ $option['text'] }}</span>
+                            <span 
+                                :class="{
+                                    'bg-emerald-600 text-white border-emerald-700': selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}',
+                                    'bg-rose-600 text-white border-rose-700': selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}',
+                                    'bg-[#b45309] text-white border-[#b45309]': selectedOption === '{{ $option['id'] }}' && !'{{ $q['correct_answer'] ?? '' }}',
+                                    'bg-[#fff2cc] text-[#b45309] border-[#ffe599]': selectedOption !== '{{ $option['id'] }}'
+                                }"
+                                class="text-xs font-bold px-2 py-0.5 rounded-md border"
+                            >
+                                {{ $option['id'] }}
+                            </span>
+                            <span class="text-sm text-[#2b3a32] font-semibold flex-1">{{ $option['text'] }}</span>
+
+                            <!-- Ikon Visual Feedback -->
+                            <div x-show="selectedOption === '{{ $option['id'] }}' && selectedOption === '{{ $q['correct_answer'] ?? '' }}'" class="absolute right-4 text-emerald-500 text-xl" style="display: none;">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div x-show="selectedOption === '{{ $option['id'] }}' && selectedOption !== '{{ $q['correct_answer'] ?? '' }}'" class="absolute right-4 text-rose-500 text-xl" style="display: none;">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </div>
                         </label>
                     @endforeach
                 </div>

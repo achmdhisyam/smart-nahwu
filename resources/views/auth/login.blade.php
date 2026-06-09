@@ -38,17 +38,22 @@
                 >
             </div>
 
-            <div class="space-y-1">
+            <div class="space-y-1" x-data="{ show: false }">
                 <label for="password" class="block text-xs font-semibold text-[#1b4332] uppercase tracking-wider">Kata Sandi</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    x-model="password"
-                    class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332]"
-                    placeholder="••••••••"
-                    required
-                >
+                <div class="relative">
+                    <input 
+                        :type="show ? 'text' : 'password'" 
+                        name="password" 
+                        id="password" 
+                        x-model="password"
+                        class="w-full bg-white border border-[#e6dec9] rounded-xl px-4 py-3 text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/30 focus:border-[#1b4332] pr-10"
+                        placeholder="••••••••"
+                        required
+                    >
+                    <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                        <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="flex items-center justify-between text-xs">
@@ -67,29 +72,7 @@
             </button>
         </form>
 
-        <!-- Divider -->
-        <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center"><span class="w-full border-t border-[#e6dec9]"></span></div>
-            <div class="relative flex justify-center text-xs uppercase"><span class="bg-white px-2 text-[#4a5d4e]">Uji Coba Demo</span></div>
-        </div>
 
-        <!-- Quick Demo login buttons (Premium UX) -->
-        <div class="grid grid-cols-2 gap-3">
-            <button 
-                @click="email = 'santri@example.com'; password = 'password'"
-                class="px-3 py-2 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#2b3a32] text-xs font-semibold rounded-xl border border-[#e6dec9] transition flex flex-col items-center justify-center space-y-1 cursor-pointer"
-            >
-                <span class="font-bold text-[#1b4332]">Akun Santri</span>
-                <span class="text-[10px] text-[#5c6f60]">santri@example.com</span>
-            </button>
-            <button 
-                @click="email = 'admin@example.com'; password = 'password'"
-                class="px-3 py-2 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#2b3a32] text-xs font-semibold rounded-xl border border-[#e6dec9] transition flex flex-col items-center justify-center space-y-1 cursor-pointer"
-            >
-                <span class="font-bold text-[#b45309]">Akun Admin</span>
-                <span class="text-[10px] text-[#5c6f60]">admin@example.com</span>
-            </button>
-        </div>
 
         <!-- Footer -->
         <div class="mt-6 text-center text-xs text-[#5c6f60]">

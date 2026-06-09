@@ -1,12 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Tambah Pengguna - Admin Smart Nahwu')
 
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
     <!-- Header -->
-    <div class="space-y-1">
-        <a href="{{ route('admin.pengguna.index') }}" class="text-xs text-[#1b4332] hover:text-[#b45309] font-bold">← Kembali ke Daftar Pengguna</a>
+    <div class="space-y-3">
+        <a href="{{ route('admin.pengguna.index') }}" class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm w-fit">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Kembali ke Daftar</span>
+        </a>
         <h1 class="text-3xl font-extrabold text-[#1b4332]">Tambah Pengguna Baru</h1>
         <p class="text-sm text-[#5c6f60]">Buat akun pengguna baru dengan role Santri atau Administrator.</p>
     </div>

@@ -9,8 +9,8 @@ use App\Http\Controllers\LupaPasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('analisis.index');
-});
+    return view('welcome');
+})->name('home');
 
 // Grup Rute Guest (Belum Login)
 Route::middleware(['guest'])->group(function () {
@@ -35,6 +35,9 @@ Route::get('/analisis/riwayat/{id}', [AnalisisController::class, 'show'])->name(
 
 // Grup Rute Riwayat Analisis & Kuis (Harus Login)
 Route::middleware(['auth'])->group(function () {
+    // Dashboard Santri
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
     // Riwayat
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
     Route::delete('/riwayat/{id}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');

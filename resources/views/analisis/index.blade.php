@@ -22,8 +22,8 @@
     @endif
 
     <!-- Form Input Card -->
-    <div class="kitab-box rounded-xl p-6 sm:p-8 relative overflow-hidden">
-        <form action="{{ route('analisis.process') }}" method="POST" class="space-y-6">
+    <div class="kitab-box rounded-xl p-6 sm:p-8 relative overflow-hidden" x-data="{ isSubmitting: false }">
+        <form action="{{ route('analisis.process') }}" method="POST" class="space-y-6" @submit="isSubmitting = true">
             @csrf
             
             <div class="space-y-2">
@@ -45,10 +45,14 @@
             <div class="flex justify-end">
                 <button 
                     type="submit" 
-                    class="w-full sm:w-auto bg-[#1b4332] hover:bg-[#2d5a45] text-white font-bold py-3.5 px-8 rounded-xl shadow-md shadow-[#1b4332]/10 transition duration-300 flex items-center justify-center space-x-2 cursor-pointer border border-[#1b4332]"
+                    :disabled="isSubmitting"
+                    class="w-full sm:w-auto bg-[#1b4332] hover:bg-[#2d5a45] text-white font-bold py-3.5 px-8 rounded-xl shadow-md shadow-[#1b4332]/10 transition duration-300 flex items-center justify-center space-x-2 cursor-pointer border border-[#1b4332] disabled:opacity-75 disabled:cursor-wait"
                 >
-                    <span>Bedah Kalimat</span>
-                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span x-show="!isSubmitting">Bedah Kalimat</span>
+                    <span x-show="isSubmitting" style="display: none;">Menganalisis...</span>
+                    
+                    <i class="fa-solid fa-feather-pointed" x-show="!isSubmitting"></i>
+                    <i class="fa-solid fa-spinner fa-spin" x-show="isSubmitting" style="display: none;"></i>
                 </button>
             </div>
         </form>

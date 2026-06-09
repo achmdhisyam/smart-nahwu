@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(request()->get('layout') === 'admin' ? 'layouts.admin' : 'layouts.app')
 
 @section('title', 'Profil Saya - Smart Nahwu')
 
@@ -112,45 +112,60 @@
                 <form action="{{ route('profil.password') }}" method="POST" class="space-y-4">
                     @csrf
                     <!-- Password Lama -->
-                    <div class="space-y-1">
+                    <div class="space-y-1" x-data="{ show: false }">
                         <label for="current_password" class="block text-xs font-bold text-[#1b4332] uppercase tracking-wider">Kata Sandi Saat Ini</label>
-                        <input 
-                            type="password" 
-                            name="current_password" 
-                            id="current_password" 
-                            class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40"
-                            required
-                        />
+                        <div class="relative">
+                            <input 
+                                :type="show ? 'text' : 'password'" 
+                                name="current_password" 
+                                id="current_password" 
+                                class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40 pr-10"
+                                required
+                            />
+                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                                <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
                         @error('current_password')
                             <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Password Baru -->
-                    <div class="space-y-1">
+                    <div class="space-y-1" x-data="{ show: false }">
                         <label for="password" class="block text-xs font-bold text-[#1b4332] uppercase tracking-wider">Kata Sandi Baru</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40"
-                            required
-                        />
+                        <div class="relative">
+                            <input 
+                                :type="show ? 'text' : 'password'" 
+                                name="password" 
+                                id="password" 
+                                class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40 pr-10"
+                                required
+                            />
+                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                                <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
                         @error('password')
                             <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Konfirmasi Password Baru -->
-                    <div class="space-y-1">
+                    <div class="space-y-1" x-data="{ show: false }">
                         <label for="password_confirmation" class="block text-xs font-bold text-[#1b4332] uppercase tracking-wider">Konfirmasi Kata Sandi Baru</label>
-                        <input 
-                            type="password" 
-                            name="password_confirmation" 
-                            id="password_confirmation" 
-                            class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40"
-                            required
-                        />
+                        <div class="relative">
+                            <input 
+                                :type="show ? 'text' : 'password'" 
+                                name="password_confirmation" 
+                                id="password_confirmation" 
+                                class="w-full bg-[#fcfbfa] border border-[#e6dec9] rounded-lg px-4 py-2.5 text-sm text-[#2b3a32] focus:outline-none focus:ring-2 focus:ring-[#1b4332]/40 pr-10"
+                                required
+                            />
+                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5c6f60] hover:text-[#1b4332] focus:outline-none">
+                                <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Tombol Simpan Password -->

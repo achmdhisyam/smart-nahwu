@@ -36,7 +36,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard')->with('success', 'Selamat datang Administrator!');
             }
 
-            return redirect()->route('kuis.index')->with('success', 'Selamat datang kembali!');
+            return redirect()->route('dashboard')->with('success', 'Selamat datang kembali!');
         }
 
         throw ValidationException::withMessages([
@@ -72,7 +72,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('kuis.index')->with('success', 'Registrasi berhasil! Selamat belajar!');
+        return redirect()->route('dashboard')->with('success', 'Registrasi berhasil! Selamat belajar!');
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Tambah Bab - Smart Nahwu')
 
@@ -6,7 +6,10 @@
 <div class="max-w-xl mx-auto space-y-6 py-6">
     <!-- Header -->
     <div class="flex items-center space-x-2">
-        <a href="{{ route('admin.chapters.index') }}" class="text-sm text-[#1b4332] hover:text-[#b45309] font-bold">← Kembali</a>
+        <a href="{{ route('admin.bab.index') }}" class="inline-flex items-center gap-2 px-3.5 py-2 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Kembali</span>
+        </a>
     </div>
     
     <div>
@@ -16,7 +19,7 @@
 
     <!-- Form Card -->
     <div class="glass bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#e6dec9]">
-        <form action="{{ route('admin.chapters.store') }}" method="POST" class="space-y-5">
+        <form action="{{ route('admin.bab.store') }}" method="POST" class="space-y-5">
             @csrf
 
             <!-- Errors -->

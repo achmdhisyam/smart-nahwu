@@ -20,7 +20,7 @@
             </div>
             
             <p class="text-xs text-[#5c6f60]">
-                Anda telah menguasai secara mendalam <span class="text-[#133827] font-bold">{{ $stats['completed'] }} dari {{ $stats['total'] }} Bab</span> (Kriteria Mastered: skor kuis >= 80).
+                Anda telah menguasai secara mendalam <span class="text-[#133827] font-bold">{{ $stats['completed'] }} dari {{ $stats['total'] }} Bab</span>.
             </p>
         </div>
 
@@ -57,35 +57,49 @@
                 @php
                     $isMastered = $chapter->progress_status === 'mastered';
                     $isLearning = $chapter->progress_status === 'learning';
+                    $isLocked = $chapter->progress_status === 'locked';
                     
                     $borderClass = $isMastered 
                         ? 'border-emerald-600/30 bg-emerald-50/40' 
-                        : ($isLearning ? 'border-[#1b4332]/30 bg-[#1b4332]/5' : 'border-[#e6dec9] bg-white');
-                    
-                    $statusIcon = $isMastered
-                        ? '<span class="text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded text-[10px] font-bold border border-emerald-200">✓ Mastered</span>'
-                        : ($isLearning ? '<span class="text-[#b45309] bg-[#fff2cc] px-2 py-0.5 rounded text-[10px] font-bold border border-[#ffe599]">✎ Dipelajari</span>' : '<span class="text-[#7f7f7f] bg-gray-100 px-2 py-0.5 rounded text-[10px] font-bold border border-gray-200">🔒 Terkunci</span>');
+                        : ($isLearning ? 'border-[#1b4332]/30 bg-[#1b4332]/5' : 'border-[#e6dec9] bg-white opacity-85');
                 @endphp
                 <div class="kitab-box p-5 rounded-xl transition duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 {{ $borderClass }}">
-                    <div class="space-y-1">
-                        <div class="flex items-center space-x-2 text-[10px] font-bold text-[#5c6f60] uppercase tracking-wider">
-                            <span>Langkah {{ $chapter->langkah_belajar }}</span>
-                            <span>•</span>
-                            <span>Bab {{ $chapter->nomor_urut }}</span>
-                            <span>•</span>
-                            {!! $statusIcon !!}
+                    <div class="flex items-start gap-4">
+                        <!-- Left Side Icon Indicator -->
+                        <div class="shrink-0 mt-1">
+                            @if($isMastered)
+                                <div class="w-10 h-10 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-700 flex items-center justify-center shadow-sm" title="Mastered">
+                                    <i class="fa-solid fa-circle-check text-lg"></i>
+                                </div>
+                            @elseif($isLearning)
+                                <div class="w-10 h-10 rounded-full bg-amber-100 border border-amber-200 text-[#b45309] flex items-center justify-center shadow-sm" title="Sedang Dipelajari">
+                                    <i class="fa-solid fa-book-open-reader text-sm"></i>
+                                </div>
+                            @else
+                                <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 text-gray-400 flex items-center justify-center shadow-sm" title="Terkunci">
+                                    <i class="fa-solid fa-lock text-sm"></i>
+                                </div>
+                            @endif
                         </div>
-                        <h3 class="font-bold text-[#133827] text-base mt-1">{{ $chapter->judul }}</h3>
-                        <p class="text-xs text-[#5c6f60] line-clamp-2 leading-relaxed">{{ $chapter->definisi }}</p>
-                        
-                        @if($chapter->best_score !== null)
-                            <div class="text-[10px] text-[#5c6f60] font-medium pt-1">
-                                Skor Terbaik: <span class="font-bold text-[#b45309]">{{ number_format($chapter->best_score, 0) }}%</span> | Percobaan: {{ $chapter->attempts }}x
+
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2 text-[10px] font-bold text-[#5c6f60] uppercase tracking-wider">
+                                <span>Langkah {{ $chapter->langkah_belajar }}</span>
+                                <span>•</span>
+                                <span>Bab {{ $chapter->nomor_urut }}</span>
                             </div>
-                        @endif
+                            <h3 class="font-bold text-[#133827] text-base mt-1">{{ $chapter->judul }}</h3>
+                            <p class="text-xs text-[#5c6f60] line-clamp-2 leading-relaxed">{{ $chapter->definisi }}</p>
+                            
+                            @if($chapter->best_score !== null)
+                                <div class="text-[10px] text-[#5c6f60] font-medium pt-1">
+                                    Skor Terbaik: <span class="font-bold text-[#b45309]">{{ number_format($chapter->best_score, 0) }}%</span> | Percobaan: {{ $chapter->attempts }}x
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
-                    <div class="w-full sm:w-auto shrink-0">
+                    <div class="w-full sm:w-auto shrink-0 pl-14 sm:pl-0">
                         <a 
                             href="{{ route('kuis.show', $chapter->id) }}" 
                             class="w-full sm:w-auto text-center inline-block px-4 py-2 bg-[#1b4332] hover:bg-[#2d5a45] text-white font-bold rounded-lg text-xs transition border border-[#1b4332]"

@@ -6,7 +6,7 @@
 <div class="max-w-5xl mx-auto space-y-8" x-data="{ selectedIndex: 0 }">
     <!-- Breadcrumb / Back button -->
     <div>
-        <a href="/analisis" class="text-sm font-semibold text-[#1b4332] hover:text-[#b45309] flex items-center space-x-2">
+        <a href="/analisis" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#fcfbfa] hover:bg-[#f5f2eb] text-[#1b4332] text-xs font-bold rounded-xl border border-[#e6dec9] transition shadow-sm">
             <i class="fa-solid fa-arrow-left"></i>
             <span>Kembali ke Input</span>
         </a>
